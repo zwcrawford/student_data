@@ -72,22 +72,40 @@ const students = [
     score: 95
 }
 ]
+// Get index element to display
+let containerDiv = document.querySelector("#container");
+
+let student = (name, className, info) => `
+    <div id="student">
+        ${h1(name, "xx-large passing")}
+        ${section(className, "bordered dashed section--padded")}
+        ${aside(info, "pushRight")}
+    </div> `
+
+let failing_student = (name, className, info) => `
+    <div id="student">
+        ${h1(name, "xx-large failing")}
+        ${section(className, "bordered dashed section--padded")}
+        ${aside(info, "pushRight")}
+    </div> `
+
 // h1 constructor function
 const h1 = (text, style) => {
 return `<h1 class="${style}">${text}</h1>`
-}
+};
+// section constructor function
 const section = (text, style) => {
 return `<section class="bordered dashed ${style}">${text}</section>`
-}
+};
+// aside constructor function
 const aside = (text, style) => {
 return `<aside class="${style}">${text}</aside>`
-}
+};
 
-for (student of students) {
-  let studentComponent = ""
-  if (student.score >= 60) {
-      studentComponent = `${style}.passing`
+for (let i = 0; i < students.length; i++) {
+  if (students[i].score >= 60) {
+    containerDiv.innerHTML += student(students[i].name, students[i].class, students[i].info);
   } else {
-      studentComponent = `${style}.failing`
-  }
-}
+    containerDiv.innerHTML += failing_student(students[i].name, students[i].class, students[i].info);
+  };
+};
